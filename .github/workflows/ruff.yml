@@ -1,0 +1,41 @@
+name: Ruff Lint
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  lint:
+    name: Run Ruff checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies (if requirements exist)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements/base.txt ]; then
+            echo "Installing dependencies from requirements/base.txt"
+            pip install -r requirements/base.txt
+          else
+            echo "⚠️  No requirements/base.txt found, skipping dependency installation"
+          fi
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run Ruff check (imports only, if src exists)
+        run: |
+          if [ -d src ]; then
+            echo "Running Ruff check in src/"
+            ruff check src/ --select I
+          else
+            echo "⚠️  No src/ directory found, skipping Ruff check"
+          fi
