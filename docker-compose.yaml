@@ -10,5 +10,5 @@ services:
       [
         "uvicorn", "src.main:app", "--reload",
         "--host", "0.0.0.0", "--port", "${BACKEND_INSIDE_PORT}",
-        "--log-level", "debug"
+        "debug"
       ]
