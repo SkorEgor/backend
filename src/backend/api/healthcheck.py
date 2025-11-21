@@ -5,11 +5,12 @@ router_healthcheck = APIRouter()
 
 @router_healthcheck.get("/healthcheck")
 async def healthcheck() -> dict:
-    """Проверяем состояние работы ресурса
+    """
+    Проверяет состояние работы ресурса
 
     Returns
     -------
     dict
-        Крактое сообщение, подтверждающие работу сайта
+        Возращает "ok" при работе сервиса
     """
     return {"message": "ok"}

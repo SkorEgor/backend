@@ -1,14 +1,15 @@
-version: "3.8"                                            # Версия docker-compose
+version: "4.52"                                           # Версия docker-compose
 services:
   backend:                                                # Имя сервиса - BACKEND
     build: .                                              # - Строить образ Docker из текущей директории
+    container_name: backend
+    hostname: backend
     env_file:                                             # Указание файла для подстановки переменных окружения
       - .env
     ports:                                                # Определение портов для перенаправления
       - "${BACKEND_OUTSIDE_PORT}:${BACKEND_INSIDE_PORT}"  # - Перенаправление CONTAINER_PORT на HOST_PORT, значения из .env
     command:                                              # Команда для запуска сервиса
       [
-        "uvicorn", "src.main:app", "--reload",
-        "--host", "0.0.0.0", "--port", "${BACKEND_INSIDE_PORT}",
-        "debug"
+        "uvicorn", "backend.main:app",
+        "--host", "0.0.0.0", "--port", "${BACKEND_INSIDE_PORT}"
       ]

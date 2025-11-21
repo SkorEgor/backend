@@ -1,5 +1,6 @@
-from api.healthcheck import router_healthcheck
 from fastapi import FastAPI
+
+from backend.api.healthcheck import router_healthcheck
 
 app = FastAPI()
 
